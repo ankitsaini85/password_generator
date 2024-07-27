@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="pass.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>Generate a <br /><span>Random password</span></h1>
+        <div class="display">
+            <input type="text" id="passwordBox" placeholder="password" readonly />
+            <img src="copy.png" alt="Copy" id="copyButton" style="cursor: pointer;" />
+        </div>
+        <button onclick="createPass(12)">
+            <img src="generate.png" alt="Generate" /> Generate Password
+        </button>
+    </div>
+
+    <script>
+    function createPass(length) {
+       
+        const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        const number = '0123456789';
+        const symbol = '!@#$%^&*()-_=+[]{}|;:,.<>?';
+        const num1 = [1, 2, 3, 4];
+
+        let password = "";
+
+        for (let i = 0; i < length; i++) {
+            const num = num1[Math.floor(Math.random() * num1.length)];
+
+            switch (num) {
+                case 1:
+                    password += uppercase[Math.floor(Math.random() * uppercase.length)];
+                    break;
+                case 2:
+                    password += lowercase[Math.floor(Math.random() * lowercase.length)];
+                    break;
+                case 3:
+                    password += number[Math.floor(Math.random() * number.length)];
+                    break;
+                case 4:
+                    password += symbol[Math.floor(Math.random() * symbol.length)];
+                    break;
+            }
+        }
+
+        const passwordBox = document.getElementById('passwordBox');
+        passwordBox.value = password;
+    }
+
+    document.getElementById('copyButton').addEventListener('click', () => {
+        const passwordBox = document.getElementById('passwordBox');
+        passwordBox.select();
+        document.execCommand('copy');
+        alert('Password copied to clipboard!');
+    });
+    </script>
+</body>
+</html>
